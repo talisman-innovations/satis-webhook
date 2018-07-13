@@ -14,6 +14,7 @@ $defaults = array(
     'json' => 'satis.json',
     'webroot' => 'web/',
     'user' => null,
+    'secret' => null
 );
 $config = Yaml::parse(__DIR__.'/config.yml');
 $config = array_merge($defaults, $config);
@@ -39,7 +40,38 @@ if (!empty($errors)) {
     exit(-1);
 }
 
-$command = sprintf('%s build %s %s', $config['bin'], $config['json'], $config['webroot']);
+// Read the JSON data from GitHub
+$rawPost = file_get_contents('php://input');
+$githubData = json_decode($rawPost);
+
+// Check the secret
+$header = $_SERVER['HTTP_X_HUB_SIGNATURE'];
+list($algo, $hash) = explode('=', $_SERVER['HTTP_X_HUB_SIGNATURE'], 2) + array('', '');
+try {
+    if ($hash !== hash_hmac($algo, $rawPost, $config['secret'])) {
+        throw new \Exception('Hook secret does not match.');
+    }
+}
+catch (Exception $e) {
+    header('HTTP/1.1 403 Forbidden');
+    echo $e->getMessage();die;
+}
+
+// Get the repo URL's
+$cloneUrl = $githubData->repository->clone_url;
+$sshUrl = $githubData->repository->ssh_url;
+
+// Read the satis JSON
+$satisData = json_decode(file_get_contents('satis.json'));
+
+foreach($satisData->repositories as $repository) {
+    if ($repository->url === $cloneUrl || $repository->url === $sshUrl) {
+        $repositoryUrl = $repository->url;
+    }
+}
+
+$command = sprintf('%s build --repository-url %s %s %s', $config['bin'], $repositoryUrl, $config['json'], $config['webroot']);
+
 if (null !== $config['user']) {
     $command = sprintf('sudo -u %s -i %s', $config['user'], $command);
 }
