@@ -1,6 +1,6 @@
 {
     "require": {
-        "symfony/process": "~2.2.0",
-        "symfony/yaml": "~2.2.0"
+        "symfony/process": "~4.2.1",
+        "symfony/yaml": "~4.2.1"
     }
 }
