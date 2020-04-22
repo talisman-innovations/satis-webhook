@@ -1,19 +1,24 @@
 {
-    "hash": "ee42fbb166b65897d0c7eb820d062397",
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "7deb12d1fa4c61cf4acae8e441f8bd75",
     "packages": [
         {
             "name": "symfony/process",
-            "version": "v2.2.0",
+            "version": "v2.2.11",
             "target-dir": "Symfony/Component/Process",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Process.git",
-                "reference": "v2.2.0-RC3"
+                "url": "https://github.com/symfony/process.git",
+                "reference": "b495834f2faadc533bdecf813f9ae8c509a4b52c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Process/zipball/v2.2.0-RC3",
-                "reference": "v2.2.0-RC3",
+                "url": "https://api.github.com/repos/symfony/process/zipball/b495834f2faadc533bdecf813f9ae8c509a4b52c",
+                "reference": "b495834f2faadc533bdecf813f9ae8c509a4b52c",
                 "shasum": ""
             },
             "require": {
@@ -36,31 +41,31 @@
             ],
             "authors": [
                 {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
                     "name": "Symfony Community",
                     "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Symfony Process Component",
             "homepage": "http://symfony.com",
-            "time": "2013-02-18 21:28:10"
+            "time": "2013-11-25T10:21:43+00:00"
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.2.0",
+            "version": "v2.2.11",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Yaml.git",
-                "reference": "v2.2.0-RC3"
+                "url": "https://github.com/symfony/yaml.git",
+                "reference": "4f3569bb23953116281fb3a642c4266ce84a2f44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/v2.2.0-RC3",
-                "reference": "v2.2.0-RC3",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/4f3569bb23953116281fb3a642c4266ce84a2f44",
+                "reference": "4f3569bb23953116281fb3a642c4266ce84a2f44",
                 "shasum": ""
             },
             "require": {
@@ -83,33 +88,28 @@
             ],
             "authors": [
                 {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
                     "name": "Symfony Community",
                     "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2013-01-27 16:49:19"
+            "time": "2013-11-25T10:21:43+00:00"
         }
     ],
-    "packages-dev": [
-
-    ],
-    "aliases": [
-
-    ],
+    "packages-dev": [],
+    "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [
-
-    ],
-    "platform": [
-
-    ],
-    "platform-dev": [
-
-    ]
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "ext-json": "*"
+    },
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }

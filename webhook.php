@@ -41,11 +41,14 @@ if (!empty($errors)) {
 }
 
 // Determine GIT provider
-if (key_exists('HTTP_X_GITHUB_EVENT', $_SERVER)) {
+if (isset($_SERVER['HTTP_X_GITHUB_EVENT'])) {
     $gitProvider = 'github';
 }
-elseif ((key_exists('HTTP_X_GITLAB_EVENT', $_SERVER))) {
+elseif (isset($_SERVER['HTTP_X_GITLAB_EVENT']))  {
     $gitProvider = 'gitlab';
+}
+elseif (isset($_SERVER['User-Agent']) && $_SERVER['User-Agent'] === 'Bitbucket-Webhooks/2.0') {
+    $gitProvider = 'bitbucket';
 }
 else {
     $gitProvider = 'general';
@@ -79,18 +82,16 @@ switch ($gitProvider) {
     case 'gitlab':
         // Read the JSON data from GitLab
         $rawPost = file_get_contents('php://input');
-        $gitlabData = json_decode($rawPost);
+        $data = json_decode($rawPost);
 
-        $receivedSecret = $_SERVER['HTTP_X_GITLAB_TOKEN'];
-        try {
-            if ($receivedSecret !== $config['secret']) {
-                throw new \Exception('Hook secret does not match.');
-            }
-        }
-        catch (Exception $e) {
-            header('HTTP/1.1 403 Forbidden');
-            echo $e->getMessage();die;
-        }
+        // Get the repo URL's
+        $cloneUrl = 'https://bitbucket.org/' . $data->repository->full_name . ".git";
+        $sshUrl = 'git@bitbucket.org:' . $data->repository->full_name . ".git";
+        break;
+
+    case 'bitbucket':
+        $rawPost = file_get_contents('php://input');
+        $gitlabData = json_decode($rawPost);
 
         // Get the repo URL's
         $cloneUrl = $gitlabData->project->http_url;
